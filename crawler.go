@@ -10,7 +10,7 @@ import (
 	"dots"
 )
 
-var visual = flag.Bool("visual", false, "Output visual information.")
+var visual = flag.Bool("visual", false, "Output visual information")
 var updated = flag.Bool("v2", true, "Use second version of the scanner")
 
 
