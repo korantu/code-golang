@@ -12,11 +12,11 @@ func TestHelper(t *testing.T) {
 }
 
 func TestContinuous(t *testing.T) {
- 	a, b := 𝕍{1, 2, 3}, 𝕍{1, 2, 3}
-  	kdl.Must(t, "sameness", a.Same(b), !a.Same(b.Add(a)))
+	a, b := Vector{1, 2, 3}, Vector{1, 2, 3}
+	kdl.Must(t, "sameness", a.Same(b), !a.Same(b.Add(a)))
 
 	// z = [x y]
-	x, y, z := 𝕍{3, -3, 1}, 𝕍{4, 9, 2}, 𝕍{-15, -2, 39}
+	x, y, z := Vector{3, -3, 1}, Vector{4, 9, 2}, Vector{-15, -2, 39}
 	fmt.Println(x.Cross(y))
 	kdl.Must(t, "cross", z.Same(x.Cross(y)))
 	kdl.Must(t, "dot",
@@ -34,14 +34,14 @@ func TestContinuous(t *testing.T) {
 }
 
 func TestDiscrete(t *testing.T) {
-	a, b := 𝕀{2, 3, 4}, 𝕀{6, 2, 1}
+	a, b := Index{2, 3, 4}, Index{6, 2, 1}
 	kdl.Must(t, "sameness", a.Same(a), !a.Same(b),
 		a.Same(a.Add(b).Add(b).Sub(b.Scale(2))))
 	kdl.Must(t, "shift", a.Scale(4).Same(a.Shift(2)))
 }
 
 func TestMesh(t *testing.T) {
-	a, b, c := &𝕍{1, 0, 0}, &𝕍{0, 1, 0}, &𝕍{0, 0, 1}
+	a, b, c := &Vector{1, 0, 0}, &Vector{0, 1, 0}, &Vector{0, 0, 1}
 
 	mesh := NewMesh()
 
