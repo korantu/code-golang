@@ -33,9 +33,9 @@ func (g *Graph) Arrows() []Arrow {
 	arrows := []Arrow{}
 	for from, to_dots := range *g {
 		for _, to := range to_dots.down {
-			arrows = append( arrows, Arrow{from, to})
+			arrows = append(arrows, Arrow{from, to})
 		}
-	} 
+	}
 	return arrows
 }
 
