@@ -4,6 +4,7 @@ package dots
 1. Efficient s-exp-like storage and processing
 2. Entity names
 3. Serialization
+*/
 
 // Graph
 type Dot struct{ down []int }
