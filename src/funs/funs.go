@@ -3,6 +3,8 @@ package funs
 /*
  Rule: No unneded incomplete features.
  Everything must have a reason to be here in this particular way.
+
+Next step: template output to meshlab: http://golang.org/pkg/text/template/#pkg-overview
 */
 
 import (
