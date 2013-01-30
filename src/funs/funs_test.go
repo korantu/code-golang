@@ -1,9 +1,11 @@
 package funs
 
 import (
+	"bytes"
 	"fmt"
 	"kdl"
 	"testing"
+	"text/template"
 )
 
 func TestHelper(t *testing.T) {
@@ -44,5 +46,24 @@ func TestMesh(t *testing.T) {
 	mesh = NewMesh()
 	Vector{0, 0, 0}.Dump(mesh)
 	kdl.Must(t, "dumped dot", len(mesh.Points()) == 6, len(mesh.Faces()) == 8)
+}
 
+func TestTemplates(t *testing.T) {
+	simplest := template.New("Simple")
+	a, _ := simplest.Parse("a")
+	buf := &bytes.Buffer{}
+	a.Execute(buf, nil)
+	kdl.Must(t, "simplest", string(buf.Bytes()) == "a")
+
+	
+	simpler := template.New("Range")
+	a, err := simpler.Parse("{{range .}}[{{.}}]{{end}}")
+	if nil != err {
+		print(err.Error())
+		t.Fail()
+	} else {
+		buf.Reset()
+		a.Execute(buf, []int{1, 2, 8})
+		kdl.Must(t, "iterate", string(buf.Bytes()) == "[1][2][8]")
+	}
 }
