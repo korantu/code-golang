@@ -1,5 +1,10 @@
 package funs
 
+/*
+ Rule: No unneded incomplete features.
+ Everything must have a reason to be here in this particular way.
+*/
+
 import (
 	"fmt"
 	"math"
@@ -17,65 +22,22 @@ const (
 type Vector struct {
 	x, y, z R
 }
-
-// Discrete point
-type Index struct {
-	x, y, z I
-}
-
-// Cell
-type Cell struct {
-	x, y, z, r I
-}
-
-// State
-type State struct {
-}
-
-func NewState() *State {
-	return &State{}
-}
-
-func (s *State) Fun(a Index) R {
-	center := Vector{0, 0, 0}
-	r := s.Vector(a)
-	return 1.0 - center.Sub(r).Len()
-}
-
-func (s *State) Index(a Vector) Index {
-	return a.Scale(10).Index()
-}
-
-func (s *State) Vector(a Index) Vector {
-	return a.Vector().Scale(0.1)
-}
-
 // Niceties
 
 func (a Vector) String() string { return fmt.Sprintf("(%.2f,%.2f,%.2f)", a.x, a.y, a.z) }
 
 func (a Vector) Same(b Vector) bool { return a.Sub(b).Len() < ε }
-func (a Index) Same(b Index) bool   { return a.x == b.x && a.y == b.y && a.z == b.z }
-func (a Cell) Same(b Cell) bool     { return a.x == b.x && a.y == b.y && a.z == b.z && a.r == b.r }
 
 func (a R) Same(b R) bool { return math.Abs(float64(a-b)) < ε }
 
-// Conversions
-
-func (a Vector) Index() Index  { return Index{I(a.x), I(a.y), I(a.z)} }
-func (a Index) Vector() Vector { return Vector{R(a.x), R(a.y), R(a.z)} }
 
 // Operations
 
 func (a Vector) Add(b Vector) Vector { return Vector{a.x + b.x, a.y + b.y, a.z + b.z} }
 func (a Vector) Sub(b Vector) Vector { return Vector{a.x - b.x, a.y - b.y, a.z - b.z} }
-func (a Index) Add(b Index) Index    { return Index{a.x + b.x, a.y + b.y, a.z + b.z} }
-func (a Index) Sub(b Index) Index    { return Index{a.x - b.x, a.y - b.y, a.z - b.z} }
 
 func (a Vector) Scale(c R) Vector  { return Vector{a.x * c, a.y * c, a.z * c} }
 func (a Vector) Divide(c R) Vector { return Vector{a.x / c, a.y / c, a.z / c} }
-func (a Index) Scale(c I) Index    { return Index{a.x * c, a.y * c, a.z * c} }
-func (a Index) Shift(c I) Index    { return Index{a.x << uint(c), a.y << uint(c), a.z << uint(c)} }
 
 func (a Vector) Len2() R      { return a.x*a.x + a.y*a.y + a.z*a.z }
 func (a Vector) Len() R       { return R(math.Sqrt(float64(a.Len2()))) }

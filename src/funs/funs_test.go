@@ -33,13 +33,6 @@ func TestContinuous(t *testing.T) {
 		a.Norm().Scale(-1).Sub(a.Norm()).Len().Same(2))
 }
 
-func TestDiscrete(t *testing.T) {
-	a, b := Index{2, 3, 4}, Index{6, 2, 1}
-	kdl.Must(t, "sameness", a.Same(a), !a.Same(b),
-		a.Same(a.Add(b).Add(b).Sub(b.Scale(2))))
-	kdl.Must(t, "shift", a.Scale(4).Same(a.Shift(2)))
-}
-
 func TestMesh(t *testing.T) {
 	a, b, c := &Vector{1, 0, 0}, &Vector{0, 1, 0}, &Vector{0, 0, 1}
 
@@ -47,4 +40,9 @@ func TestMesh(t *testing.T) {
 
 	mesh.Face(a, b, c).Face(a, c, b)
 	kdl.Must(t, "one triangle", len(mesh.Points()) == 3, len(mesh.Faces()) == 2)
+
+	mesh = NewMesh()
+	Vector{0, 0, 0}.Dump(mesh)
+	kdl.Must(t, "dumped dot", len(mesh.Points()) == 6, len(mesh.Faces()) == 8)
+
 }
